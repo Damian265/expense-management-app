@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+
+    stages {
+        stage('Checkout') {
+            steps {
+                git 'https://github.com/Damian265/expense-management-app.git'
+            }
+        }
+        stage('Build') {
+            steps {
+                script {
+                    docker-compose build
+                }
+            }
+        }
+        stage('Test') {
+            steps {
+                // Aquí irían los comandos para ejecutar pruebas automatizadas
+                echo 'Running tests...'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                script {
+                    docker-compose up -d
+                }
+            }
+        }
+    }
+}
